@@ -87,3 +87,95 @@ h1{
     max-height: 100%;
     object-fit: scale-down;
 }
+
+.triangle {
+	width: 0;
+	height: 0;
+	border-left: 6px solid transparent;
+	border-right: 6px solid transparent;
+	border-bottom: 12px solid black;
+}
+
+/* arrows from rock to scissors */
+.RS.first{
+    position: absolute;
+    bottom: 25%;
+    left: 39.5%;
+    rotate: -70deg;
+}
+
+.RS.second{
+    position: absolute;
+    bottom: 30%;
+    left: 35.5%;
+    rotate: -50deg;
+}
+
+.RS.third{
+    position: absolute;
+    bottom: 37%;
+    left: 32%;
+    rotate: -38deg;
+}
+
+
+
+/* arrows from paper to rock */
+.PR.first{
+    position: absolute;
+    bottom: 38%;
+    right: 32%;
+    rotate: -150deg;
+}
+.PR.second{
+    position: absolute;
+    bottom: 32%;
+    right: 34.5%;
+    rotate: -140deg;
+}
+.PR.third{
+    position: absolute;
+    bottom: 27.5%;
+    right: 38%;
+    rotate: -125deg;
+}
+.PR.fourth{
+    position: absolute;
+    bottom: 25%;
+    right: 42%;
+    rotate: -115deg;
+}
+
+/* arrow from scissors to paper */
+.SR.first{
+    position: absolute;
+    top: 42.5%;
+    left: 33%;
+    rotate: 66deg;
+}
+.SR.second{
+    position: absolute;
+    top: 38%;
+    left: 39.5%;
+    rotate: 72deg;
+}
+.SR.third{
+    position: absolute;
+    top: 36%;
+    left: 47%;
+    rotate: 85deg;
+}
+
+.SR.fourth{
+    position: absolute;
+    top: 37.8%;
+    left: 55.5%;
+    rotate: 110deg;
+}
+
+.SR.fifth{
+    position: absolute;
+    top: 43.5%;
+    left: 63%;
+    rotate: 120deg;
+}
