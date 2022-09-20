@@ -1,18 +1,10 @@
 // PSEUDOCODE -- Rock Paper Scissors
 
+// Assigning variables
+const playerScore = document.getElementById('player-score');
+const computerScore = document.getElementById('computer-score');
 
-
-
-
-
-// GetcomputerChoice 
-//     Computer chooses randomly R P or S
-function getComputerChoice(gameOptions){
-    let num = Math.floor(Math.random()*3);
-    let computerSelection = gameOptions[num];
-    return computerSelection;
-}
-
+const results = document.getElementById('results');
 
 
 // Get player Choice => no longer a function. Adding event listener and use query selector of button id to take the value from clicking button of R P or S. no need to make case insensitive or alert for mistakes.
@@ -21,9 +13,23 @@ function getComputerChoice(gameOptions){
 const buttonList = document.querySelectorAll(".btn");
 buttonList.forEach((button)=>{
     button.addEventListener('click', ()=>{
-        const playerChoice = button.id;
+        const playerSelection = button.id;
     });
 });
+
+
+
+
+// GetcomputerChoice 
+//     Computer chooses randomly R P or S
+function getComputerChoice(){
+    const gameOptions = ["Rock", "Paper", "Scissors"];
+    let num = Math.floor(Math.random()*3);
+    return gameOptions[num];
+}
+
+
+
 
 
 
@@ -33,9 +39,7 @@ buttonList.forEach((button)=>{
 
 function playRound(){
     //Variables
-    const gameOptions = ["Rock", "Paper", "Scissors"];
-    const computerSelection = getComputerChoice(gameOptions);
-    const playerSelection = evalPlayerSelection(gameOptions);
+    const computerSelection = getComputerChoice();
 
 //     IF computerChoice === PlayerChoice
 //         it's a tie, play again
