@@ -1,8 +1,10 @@
 // PSEUDOCODE -- Rock Paper Scissors
 
 // Assigning variables
+const score = document.getElementById('score');
 const playerScore = document.getElementById('player-score');
 const computerScore = document.getElementById('computer-score');
+
 
 const results = document.getElementById('results');
 
@@ -14,6 +16,7 @@ const buttonList = document.querySelectorAll(".btn");
 buttonList.forEach((button)=>{
     button.addEventListener('click', ()=>{
         const playerSelection = button.id;
+        game(playerSelection);
     });
 });
 
@@ -38,23 +41,16 @@ function getComputerChoice(){
 //         # specific message for each play
 
 function playRound(playerSelection){
-    //Variables
+
     const computerSelection = getComputerChoice();
     let response;
     let roundWon;
-//     IF computerChoice === PlayerChoice
-//         it's a tie, play again
+
     if(computerSelection === playerSelection){
         response = "It's a tie";
-        roundWon = 'tie';
+        roundWon = null;
     }
-//     ELSE IF computerChoice === Rock
-//         IF playerChoice === Scissors
-//         playerLost
-//         Return
-//         IF playerChoice === Paper
-//         playerWon
-//         Return
+
     else if(computerSelection === "Rock"){
         if(playerSelection === "Scissors"){
             response = "Rock beats scissors";
@@ -65,13 +61,7 @@ function playRound(playerSelection){
             roundWon = true;
         }
     }
-//     ELSE IF computerChoice === Paper
-//         IF playerChoice === Rock
-//         playerLost
-//         Return
-//         IF playerChoice === Scissors
-//         playerWon
-//         Return
+
     else if(computerSelection === "Paper"){
         if(playerSelection === "Rock"){
             response = "Paper beats rock";
@@ -82,13 +72,7 @@ function playRound(playerSelection){
             roundWon = true;
         }
     }
-//     ELSE IF computerChoice === Scissors
-//         IF playerChoice === Paper
-//         playerLost
-//         Return
-//         IF playerChoice === Rock
-//         playerWon
-//         Return
+
     else if(computerSelection === "Scissors"){
         if(playerSelection === "Paper"){
             response = "Scissors beats paper";
@@ -101,9 +85,34 @@ function playRound(playerSelection){
     }
 
     return [response, roundWon];
-
 }
 
+
+function updateScore(roundWon){
+    if(roundWon){
+        playerScore.textContent = Number(playerScore.textContent)+1;
+        score.classList.add('gold');
+    }
+    else if(!roundWon && roundWon!==null) {
+        computerScore.textContent = Number(computerScore.textContent)+1;
+        score.classList.add('red');
+    }
+}
+
+function isGameFinished(){
+    let gameWinner;
+    if(playerScore.textContent==='5'){
+        gameWinner = "You won!";
+        return gameWinner
+    }
+    else if(computerScore.textContent==='5'){
+        gameWinner = "You lost!";
+        return gameWinner
+    }
+    else{
+        return false
+    }
+}
 
 
 // Game
@@ -114,31 +123,29 @@ function playRound(playerSelection){
 //         declare winner or loser
 //         End Game
 
-function game(){
-    let playerWon = 0;
-    let playerLost = 0;
+function game(playerSelection){
 
-    for(let i=1; i<=5; i++){
-        let play = playRound();
-        alert(play);
-        if(play === "you won this round"){
-            playerWon++;
-        }
-        else if(play === "you lost this round"){
-            playerLost++;
-        }
-    }
+const [response, roundWon] = playRound(playerSelection);
 
-    if(playerWon > playerLost){
-        console.log("You won the Game!")
-    }
-    else if(playerWon < playerLost){
-        console.log("You lost the Game!")
-    }
-    else if(playerWon === playerLost){
-        console.log("It's a tie! Incredible!")
-    }
-    else{
-        console.log("Something went wrong with the game.")
-    }
+results.textContent = response;
+
+updateScore(roundWon);
+
+function removeTransition(e){
+    if(e.propertyName!=='transform')return;
+    this.classList.remove('gold');
+    this.classList.remove('red');
+}
+
+const transitions = document.querySelectorAll('.transitions');
+transitions.forEach(transition=>transition.addEventListener('transitionend',removeTransition));
+
+
+if(gameWinner = isGameFinished()){
+    alert(`${gameWinner} Let's play again!`);
+    playerScore.textContent = 0;
+    computerScore.textContent = 0;
+    results.textContent = '';
+}
+
 }
