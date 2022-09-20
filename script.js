@@ -37,14 +37,16 @@ function getComputerChoice(){
 //         #single round
 //         # specific message for each play
 
-function playRound(){
+function playRound(playerSelection){
     //Variables
     const computerSelection = getComputerChoice();
-
+    let response;
+    let roundWon;
 //     IF computerChoice === PlayerChoice
 //         it's a tie, play again
     if(computerSelection === playerSelection){
-        return "It's a tie";
+        response = "It's a tie";
+        roundWon = 'tie';
     }
 //     ELSE IF computerChoice === Rock
 //         IF playerChoice === Scissors
@@ -55,10 +57,12 @@ function playRound(){
 //         Return
     else if(computerSelection === "Rock"){
         if(playerSelection === "Scissors"){
-            return "you lost this round";
+            response = "Rock beats scissors";
+            roundWon = false;
         }
         else{
-            return "you won this round";
+            response = "Paper beats rock";
+            roundWon = true;
         }
     }
 //     ELSE IF computerChoice === Paper
@@ -68,14 +72,16 @@ function playRound(){
 //         IF playerChoice === Scissors
 //         playerWon
 //         Return
-else if(computerSelection === "Paper"){
-    if(playerSelection === "Rock"){
-        return "you lost this round";
+    else if(computerSelection === "Paper"){
+        if(playerSelection === "Rock"){
+            response = "Paper beats rock";
+            roundWon = false;            
+        }
+        else{
+            response = "Scissors beats paper";
+            roundWon = true;
+        }
     }
-    else{
-        return "you won this round";
-    }
-}
 //     ELSE IF computerChoice === Scissors
 //         IF playerChoice === Paper
 //         playerLost
@@ -83,31 +89,28 @@ else if(computerSelection === "Paper"){
 //         IF playerChoice === Rock
 //         playerWon
 //         Return
-else if(computerSelection === "Scissors"){
-    if(playerSelection === "Paper"){
-        return "you lost this round";
+    else if(computerSelection === "Scissors"){
+        if(playerSelection === "Paper"){
+            response = "Scissors beats paper";
+            roundWon = false;
+        }
+        else{
+            response = "Rock beats scissors";
+            roundWon = true;
+        }
     }
-    else{
-        return "you won this round";
-    }
-}
-//     ELSE 
-//         something went wrong
-else{
-    alert("something went wrong");
-}
+
+    return [response, roundWon];
+
 }
 
 
 
 // Game
-//         # 5 rounds
-//     Reiterate over 5 times
-//         GetComputerChoice
-//         GetPlayerChoice
+//         # until player/ computer has 5 wins
 //         PlayRound
 //         keep tally of winner and loser
-//     when 5 round were played
+//         when score reaches 5
 //         declare winner or loser
 //         End Game
 
