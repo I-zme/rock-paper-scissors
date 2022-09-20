@@ -15,35 +15,17 @@ function getComputerChoice(gameOptions){
 
 
 
-// GetplayerChoice 
-//         #case insesitive
-        
-//     Player inputs value Rock Paper or Scissors
-//     IF player input not Rock Paper or Scissors
-//         request input again
-function getPlayerChoice(gameOptions){
-        let playerSelection = makeCaseInsensitive(prompt("Enter Rock, Paper or Scissors: "));
-        return playerSelection;
-        }
+// Get player Choice => no longer a function. Adding event listener and use query selector of button id to take the value from clicking button of R P or S. no need to make case insensitive or alert for mistakes.
+// Once a button is fired, it starts up the play round function and feeds it the player's choice.
 
-function makeCaseInsensitive(a_string){
-    //takes string, makes lower case, capitalizes first letter
-    changed_string = a_string.toLowerCase().replace(a_string[0],a_string[0].toUpperCase());
-    return changed_string;
-}
-    
+const buttonList = document.querySelectorAll(".btn");
+buttonList.forEach((button)=>{
+    button.addEventListener('click', ()=>{
+        const playerChoice = button.id;
+    });
+});
 
-function evalPlayerSelection(gameOptions){
-    while(true){
-        let playerSelection = getPlayerChoice(gameOptions);
-        if(gameOptions.includes(playerSelection)){
-            return playerSelection;
-        }
-        else{
-            alert("Wrong Entry, try again!");
-        }
-    }
-}
+
 
 // PlayRound
 //         #single round
