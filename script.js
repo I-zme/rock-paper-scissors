@@ -35,7 +35,7 @@ function getComputerChoice(){
 function addColourClass(selectionArray, roundWon){
     const arrow = determineArrowName(selectionArray);
     if(roundWon===null)return;
-    let colourClass = roundWon? 'green-triangle':'red-triangle';
+    let colourClass = roundWon? 'winColour-triangle':'loseColour-triangle';
     const triangles = document.querySelectorAll(arrow);
     triangles.forEach((triangle)=>{
         triangle.classList.add(colourClass);
@@ -115,11 +115,11 @@ function playRound(playerSelection){
 function updateScore(roundWon){
     if(roundWon){
         playerScore.textContent = Number(playerScore.textContent)+1;
-        score.classList.add('green');
+        score.classList.add('winColour');
     }
     else if(!roundWon && roundWon!==null) {
         computerScore.textContent = Number(computerScore.textContent)+1;
-        score.classList.add('red');
+        score.classList.add('loseColour');
     }
 }
 
@@ -140,12 +140,12 @@ function isGameFinished(){
 
 function removeTransition(e){
     if(e.propertyName==='box-shadow'){
-        this.classList.remove('green');
-        this.classList.remove('red');
+        this.classList.remove('winColour');
+        this.classList.remove('loseColour');
     }
     else if(e.propertyName==='border-bottom-color'){
-        this.classList.remove('green-triangle');
-        this.classList.remove('red-triangle');
+        this.classList.remove('winColour-triangle');
+        this.classList.remove('loseColour-triangle');
     }
     else return;
 }
@@ -174,7 +174,7 @@ function game(playerSelection){
     transitions.forEach(transition=>transition.addEventListener('transitionend',removeTransition));
 
     if(gameWinner = isGameFinished()){
-        delay(700).then(()=>{
+        delay(500).then(()=>{
             alert(`${gameWinner} Let's play again!`);
             playerScore.textContent = 0;
             computerScore.textContent = 0;
