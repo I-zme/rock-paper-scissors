@@ -24,6 +24,10 @@ h1{
 }
 
 
+.transitions{
+    transition: 0.8s;
+}
+
 #score{
     height: fit-content;
     width: fit-content;
@@ -32,8 +36,6 @@ h1{
     position: absolute;
     top: 4%;
     right: 1%;
-    
-    transition: all .02s;
     
     border-collapse: separate;
     border-spacing: 0.5rem 0.3rem;
@@ -99,8 +101,7 @@ h1{
 	height: 0;
 	border-left: 6px solid transparent;
 	border-right: 6px solid transparent;
-	border-bottom: 12px solid black;
-    transition: all .05s;
+	border-bottom: 12px solid transparent;
 }
 
 /* arrows from rock to scissors */
@@ -189,9 +190,17 @@ h1{
 
 /* add-on classes */
 .red{
-    box-shadow: 0 0 7px 2px  red;
+    box-shadow: 0 0 10px 4px  red;
 }
 
 .green{
-    box-shadow: 0 0 7px 2px  greenyellow;
+    box-shadow: 0 0 10px 4px  greenyellow;
+}
+
+.green-triangle{    
+	border-bottom-color: blue;
+}
+
+.red-triangle{
+    border-bottom-color: red;
 }

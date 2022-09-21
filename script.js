@@ -32,14 +32,30 @@ function getComputerChoice(){
 }
 
 
-function addColourClass(arrow, roundWon){
-    let colourClass = roundWon? '.green':'.red';
+function addColourClass(selectionArray, roundWon){
+    const arrow = determineArrowName(selectionArray);
+    if(roundWon===null)return;
+    let colourClass = roundWon? 'green-triangle':'red-triangle';
     const triangles = document.querySelectorAll(arrow);
     triangles.forEach((triangle)=>{
         triangle.classList.add(colourClass);
     })
 }
 
+
+function determineArrowName([playerSelection,computerSelection]){
+    let arrow = playerSelection[0]+computerSelection[0];
+    if(arrow==='PR'||arrow==='RP'){
+        arrow = '.PR';
+    }
+    else if(arrow==='SR'||arrow==='RS'){
+        arrow = '.RS';
+    }
+    else{
+        arrow = '.SP';
+    }
+    return arrow
+}
 
 
 // PlayRound
@@ -52,9 +68,7 @@ function playRound(playerSelection){
     let response;
     let roundWon;
 
-    let RSarrow = '.RS';
-    let PRarrow = '.PR';
-    let PSarrow = '.SP';
+   
 
     if(computerSelection === playerSelection){
         response = "It's a tie";
@@ -65,19 +79,17 @@ function playRound(playerSelection){
         if(playerSelection === "Scissors"){
             response = "Rock beats scissors";
             roundWon = false;
-            addColourClass(RSarrow,roundWon);
         }
         else{
             response = "Paper beats rock";
             roundWon = true;
-            addColourClass(PRarrow,roundWon);
         }
     }
 
     else if(computerSelection === "Paper"){
         if(playerSelection === "Rock"){
             response = "Paper beats rock";
-            roundWon = false;            
+            roundWon = false;
         }
         else{
             response = "Scissors beats paper";
@@ -95,7 +107,7 @@ function playRound(playerSelection){
             roundWon = true;
         }
     }
-
+    addColourClass([computerSelection,playerSelection], roundWon);
     return [response, roundWon];
 }
 
@@ -126,6 +138,21 @@ function isGameFinished(){
     }
 }
 
+function removeTransition(e){
+    if(e.propertyName==='box-shadow'){
+        this.classList.remove('green');
+        this.classList.remove('red');
+    }
+    else if(e.propertyName==='border-bottom-color'){
+        this.classList.remove('green-triangle');
+        this.classList.remove('red-triangle');
+    }
+    else return;
+}
+
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 // Game
 //         # until player/ computer has 5 wins
@@ -137,28 +164,21 @@ function isGameFinished(){
 
 function game(playerSelection){
 
-const [response, roundWon] = playRound(playerSelection);
+    const [response, roundWon] = playRound(playerSelection);
 
-results.textContent = response;
+    results.textContent = response;
 
-updateScore(roundWon);
+    updateScore(roundWon);
 
-function removeTransition(e){
-    console.log('got here');//REMOVE LATER
-    if(e.propertyName!=='transform')return;
-    this.classList.remove('green');
-    this.classList.remove('red');
-}
+    const transitions = document.querySelectorAll('.transitions');
+    transitions.forEach(transition=>transition.addEventListener('transitionend',removeTransition));
 
-const transitions = document.querySelectorAll('.transitions');
-transitions.forEach(transition=>transition.addEventListener('transitionend',removeTransition));//problem is here
-
-
-if(gameWinner = isGameFinished()){
-    alert(`${gameWinner} Let's play again!`);
-    playerScore.textContent = 0;
-    computerScore.textContent = 0;
-    results.textContent = '';
-}
-
+    if(gameWinner = isGameFinished()){
+        delay(800).then(()=>{
+            alert(`${gameWinner} Let's play again!`);
+            playerScore.textContent = 0;
+            computerScore.textContent = 0;
+            results.textContent = '';
+        });
+    }
 }
