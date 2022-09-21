@@ -32,7 +32,13 @@ function getComputerChoice(){
 }
 
 
-
+function addColourClass(arrow, roundWon){
+    let colourClass = roundWon? '.green':'.red';
+    const triangles = document.querySelectorAll(arrow);
+    triangles.forEach((triangle)=>{
+        triangle.classList.add(colourClass);
+    })
+}
 
 
 
@@ -46,6 +52,10 @@ function playRound(playerSelection){
     let response;
     let roundWon;
 
+    let RSarrow = '.RS';
+    let PRarrow = '.PR';
+    let PSarrow = '.SP';
+
     if(computerSelection === playerSelection){
         response = "It's a tie";
         roundWon = null;
@@ -55,10 +65,12 @@ function playRound(playerSelection){
         if(playerSelection === "Scissors"){
             response = "Rock beats scissors";
             roundWon = false;
+            addColourClass(RSarrow,roundWon);
         }
         else{
             response = "Paper beats rock";
             roundWon = true;
+            addColourClass(PRarrow,roundWon);
         }
     }
 
@@ -91,7 +103,7 @@ function playRound(playerSelection){
 function updateScore(roundWon){
     if(roundWon){
         playerScore.textContent = Number(playerScore.textContent)+1;
-        score.classList.add('gold');
+        score.classList.add('green');
     }
     else if(!roundWon && roundWon!==null) {
         computerScore.textContent = Number(computerScore.textContent)+1;
@@ -132,13 +144,14 @@ results.textContent = response;
 updateScore(roundWon);
 
 function removeTransition(e){
+    console.log('got here');//REMOVE LATER
     if(e.propertyName!=='transform')return;
-    this.classList.remove('gold');
+    this.classList.remove('green');
     this.classList.remove('red');
 }
 
 const transitions = document.querySelectorAll('.transitions');
-transitions.forEach(transition=>transition.addEventListener('transitionend',removeTransition));
+transitions.forEach(transition=>transition.addEventListener('transitionend',removeTransition));//problem is here
 
 
 if(gameWinner = isGameFinished()){
