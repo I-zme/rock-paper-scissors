@@ -165,8 +165,8 @@ function delay(ms) {
 function game(playerSelection){
 
     const [response, roundWon] = playRound(playerSelection);
-
-    results.textContent = response;
+    results.textContent='';
+    delay(10).then(()=>{results.textContent = response});
 
     updateScore(roundWon);
 
@@ -174,7 +174,7 @@ function game(playerSelection){
     transitions.forEach(transition=>transition.addEventListener('transitionend',removeTransition));
 
     if(gameWinner = isGameFinished()){
-        delay(800).then(()=>{
+        delay(700).then(()=>{
             alert(`${gameWinner} Let's play again!`);
             playerScore.textContent = 0;
             computerScore.textContent = 0;
