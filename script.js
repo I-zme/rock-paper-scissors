@@ -174,7 +174,7 @@ function game(playerSelection){
     transitions.forEach(transition=>transition.addEventListener('transitionend',removeTransition));
 
     if(gameWinner = isGameFinished()){
-        delay(500).then(()=>{
+        delay(450).then(()=>{
             alert(`${gameWinner} Let's play again!`);
             playerScore.textContent = 0;
             computerScore.textContent = 0;
